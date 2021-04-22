@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
+import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-yahoo-api',
   templateUrl: './yahoo-api.component.html',
@@ -7,17 +8,312 @@ import axios from "axios";
 })
 export class YahooApiComponent implements OnInit {
 
-  constructor() { }
+  companiesList = [
+    { symbol: '1140', name: 'AL Bilad '},
+    { symbol: '4300', name: 'Dar Al '},
+    { symbol: '8250', name: 'AXA '},
+    { symbol: '8150', name: 'ACIG '},
+    { symbol: '2090', name: 'Gypsum ', routeDesc: 'bla bla bla' },
+    { symbol: '4020', name: 'Real Estate', routeDesc: 'bla bla bla' },
+    { symbol: '8300', name: 'Wataniya ', routeDesc: 'bla bla bla' },
+    { symbol: '3040', name: 'Qassim Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '4220', name: 'Emaar E ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8012',
+      name: 'Jazira Takaful ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '6080',
+      name: 'Bishah Agriculture ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '8010', name: 'Tawuniya ', routeDesc: 'bla bla bla' },
+    { symbol: '6004', name: 'Catering ', routeDesc: 'bla bla bla' },
+    { symbol: '2320', name: 'AL Babtain ', routeDesc: 'bla bla bla' },
+    { symbol: '6002', name: 'Herfy Foods ', routeDesc: 'bla bla bla' },
+    { symbol: '8090', name: 'SANAD ', routeDesc: 'bla bla bla' },
+    { symbol: '7050', name: 'Almutakamela ', routeDesc: 'bla bla bla' },
+    { symbol: '4140', name: 'Saudi Export ', routeDesc: 'bla bla bla' },
+    { symbol: '2150', name: 'Glass ', routeDesc: 'bla bla bla' },
+    { symbol: '8210', name: 'Bupa Arabia ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2240',
+      name: 'Zamil Industrial ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2010', name: 'SABIC ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8220',
+      name: 'Weqaya Takaful ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '1090', name: 'SAMBA ', routeDesc: 'bla bla bla' },
+    { symbol: '1310', name: 'MMG ', routeDesc: 'bla bla bla' },
+    { symbol: '8140', name: 'Al ', routeDesc: 'bla bla bla' },
+    { symbol: '1150', name: 'Alinma ', routeDesc: 'bla bla bla' },
+    { symbol: '4030', name: 'Bahri ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '7040',
+      name: 'Atheeb Telecom ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '6090',
+      name: 'Jazan Development ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '8020',
+      name: 'Malath Insurance ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '4230', name: 'Red Sea ', routeDesc: 'bla bla bla' },
+    { symbol: '6010', name: 'NADEC ', routeDesc: 'bla bla bla' },
+    { symbol: '8290', name: 'Solidarity ', routeDesc: 'bla bla bla' },
+    { symbol: '4130', name: 'Al Baha ', routeDesc: 'bla bla bla' },
+    { symbol: '1060', name: 'SABB ', routeDesc: 'bla bla bla' },
+    { symbol: '3030', name: 'Saudi Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '2310', name: 'Sipchem ', routeDesc: 'bla bla bla' },
+    { symbol: '2140', name: 'Al Ahsa ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2060',
+      name: 'Industrialization ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2250', name: 'SIIG ', routeDesc: 'bla bla bla' },
+    { symbol: '1320', name: 'SSP ', routeDesc: 'bla bla bla' },
+    { symbol: '8230', name: 'Al Rajhi ', routeDesc: 'bla bla bla' },
+    { symbol: '8030', name: 'MEDGULF ', routeDesc: 'bla bla bla' },
+    { symbol: '1080', name: 'Arab National ', routeDesc: 'bla bla bla' },
+    { symbol: '1120', name: 'Al Rajhi ', routeDesc: 'bla bla bla' },
+    { symbol: '4070', name: 'Tihama ', routeDesc: 'bla bla bla' },
+    { symbol: '7030', name: 'ZAIN KSA ', routeDesc: 'bla bla bla' },
+    { symbol: '4090', name: 'Taiba ', routeDesc: 'bla bla bla' },
+    { symbol: '4200', name: 'Aldrees ', routeDesc: 'bla bla bla' },
+    { symbol: '8130', name: 'ATC ', routeDesc: 'bla bla bla' },
+    { symbol: '4280', name: 'Kingdom ', routeDesc: 'bla bla bla' },
+    { symbol: '4040', name: 'SAPTCO ', routeDesc: 'bla bla bla' },
+    { symbol: '2300', name: 'SPM ', routeDesc: 'bla bla bla' },
+    { symbol: '3020', name: 'Yamamah Cement', routeDesc: 'bla bla bla' },
+    { symbol: '2380', name: 'Petro Rabigh ', routeDesc: 'bla bla bla' },
+    { symbol: '2170', name: 'Alujain ', routeDesc: 'bla bla bla' },
+    { symbol: '6060', name: 'Sharqiya Dev ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2260',
+      name: 'Sahara Petrochemical ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '2070',
+      name: 'Pharmaceutical ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '1010', name: 'RIBL ', routeDesc: 'bla bla bla' },
+    { symbol: '8040', name: 'ALLIANZ SF ', routeDesc: 'bla bla bla' },
+    { symbol: '4210', name: 'SRMG ', routeDesc: 'bla bla bla' },
+    { symbol: '2280', name: 'Almarai ', routeDesc: 'bla bla bla' },
+    { symbol: '4270', name: 'SPPC ', routeDesc: 'bla bla bla' },
+    { symbol: '1330', name: 'ALKHODARI ', routeDesc: 'bla bla bla' },
+    { symbol: '4190', name: 'Jarir ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '7020',
+      name: 'Etihad Etisalat ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '8200', name: 'Saudi Re ', routeDesc: 'bla bla bla' },
+    { symbol: '8280', name: 'Al Alamiya ', routeDesc: 'bla bla bla' },
+    { symbol: '8120', name: 'Gulf Union ', routeDesc: 'bla bla bla' },
+    { symbol: '2270', name: 'SADAFCO ', routeDesc: 'bla bla bla' },
+    { symbol: '2040', name: 'Ceramic ', routeDesc: 'bla bla bla' },
+    { symbol: '4050', name: 'SASCO ', routeDesc: 'bla bla bla' },
+    { symbol: '3010', name: 'Arab Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '6001', name: 'H B ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '4290',
+      name: 'Alkhaleej Trng ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '3090', name: 'Tabuk Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '3091', name: 'Jouf Cement ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '6070',
+      name: 'Jouff Agriculture',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2370', name: 'MESC ', routeDesc: 'bla bla bla' },
+    { symbol: '2160', name: 'Amiantit ', routeDesc: 'bla bla bla' },
+    { symbol: '4260', name: 'Budget Saudi ', routeDesc: 'bla bla bla' },
+    { symbol: '4080', name: 'Assir ', routeDesc: 'bla bla bla' },
+    { symbol: '8050', name: 'SALAMA ', routeDesc: 'bla bla bla' },
+    { symbol: '4110', name: 'Mubarrad ', routeDesc: 'bla bla bla' },
+    { symbol: '4180', name: 'Fitaihi Group ', routeDesc: 'bla bla bla' },
+    { symbol: '2290', name: 'YANSAB ', routeDesc: 'bla bla bla' },
+    { symbol: '2190', name: 'SISCO ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '3004',
+      name: 'Northern Cement ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '3001', name: 'HCC ', routeDesc: 'bla bla bla' },
+    { symbol: '3003', name: 'City Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '3002', name: 'Najran Cement ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8110',
+      name: 'WAFA Insurance ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '7010', name: 'STC ', routeDesc: 'bla bla bla' },
+    { symbol: '2200', name: 'Pipes ', routeDesc: 'bla bla bla' },
+    { symbol: '2050', name: 'SAVOLA  Group ', routeDesc: 'bla bla bla' },
+    { symbol: '8190', name: 'U C ', routeDesc: 'bla bla bla' },
+    { symbol: '4061', name: 'Anaam Holding ', routeDesc: 'bla bla bla' },
+    { symbol: '1301', name: 'ASLAK ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '6040',
+      name: 'Tabuk Agriculture ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2110', name: 'Cables ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '1030',
+      name: 'Saudi Investment ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '3080',
+      name: 'Eastern Cement ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2360', name: 'SVCP ', routeDesc: 'bla bla bla' },
+    { symbol: '1212', name: 'Astra Indust ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '1213',
+      name: 'AlSorayai Group',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '1210', name: 'BCI ', routeDesc: 'bla bla bla' },
+    { symbol: '1211', name: 'MA ', routeDesc: 'bla bla bla' },
+    { symbol: '8100', name: 'SAICO ', routeDesc: 'bla bla bla' },
+    { symbol: '1214', name: 'SHAKER ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8060',
+      name: 'Walaa Insurance ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2180', name: 'FIPCO ', routeDesc: 'bla bla bla' },
+    { symbol: '8260', name: 'Gulf General ', routeDesc: 'bla bla bla' },
+    { symbol: '2210', name: 'Nama Chemicals', routeDesc: 'bla bla bla' },
+    { symbol: '4170', name: 'Shams', routeDesc: 'bla bla bla' },
+    { symbol: '1020', name: 'BJAZ ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8180',
+      name: 'Sagr Insurance ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2020', name: 'SAFCO ', routeDesc: 'bla bla bla' },
+    { symbol: '2350', name: 'Saudi Kayan ', routeDesc: 'bla bla bla' },
+    { symbol: '2100', name: 'Food ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '6050',
+      name: 'Saudi Fisheries ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '8170', name: 'Trade Union ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '5110',
+      name: 'Saudi Electricity ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '8070',
+      name: 'Arabian Shield ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '1201', name: 'Takween ', routeDesc: 'bla bla bla' },
+    { symbol: '4240', name: 'AlHokair ', routeDesc: 'bla bla bla' },
+    { symbol: '3060', name: 'Yanbu Cement ', routeDesc: 'bla bla bla' },
+    { symbol: '8270', name: 'Buruj ', routeDesc: 'bla bla bla' },
+    { symbol: '1050', name: 'Saudi Fransi ', routeDesc: 'bla bla bla' },
+    { symbol: '1810', name: 'ALTAYYAR ', routeDesc: 'bla bla bla' },
+    { symbol: '2340', name: 'AlAbdullatif ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2130',
+      name: 'Saudi Industrial ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '4160', name: 'Thim ', routeDesc: 'bla bla bla' },
+    { symbol: '4001', name: 'A ', routeDesc: 'bla bla bla' },
+    { symbol: '4002', name: 'Mouwasat ', routeDesc: 'bla bla bla' },
+    { symbol: '4003', name: 'Extra ', routeDesc: 'bla bla bla' },
+    { symbol: '4004', name: 'Dallah Health ', routeDesc: 'bla bla bla' },
+    { symbol: '4005', name: 'Care ', routeDesc: 'bla bla bla' },
+    { symbol: '2220', name: 'Maadaniyah ', routeDesc: 'bla bla bla' },
+    { symbol: '2030', name: 'SARCO ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '6020',
+      name: 'Qassim Agriculture ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '4310', name: 'KEC ', routeDesc: 'bla bla bla' },
+    { symbol: '8160', name: 'AICC ', routeDesc: 'bla bla bla' },
+    { symbol: '4250', name: 'Jabal Omar ', routeDesc: 'bla bla bla' },
+    { symbol: '4100', name: 'Makkah ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '8310',
+      name: 'AMANA Insurance ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '8311', name: 'Enaya ', routeDesc: 'bla bla bla' },
+    { symbol: '8312', name: 'Alinma Tokio ', routeDesc: 'bla bla bla' },
+    { symbol: '8240', name: 'ACE ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '3050',
+      name: 'Southern Cement ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2330', name: 'Advanced ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2120',
+      name: 'Saudi Advanced ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '4150',
+      name: 'Arriyadh Development ',
+      routeDesc: 'bla bla bla',
+    },
+    {
+      symbol: '1040',
+      name: 'Saudi Hollandi ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '8080', name: 'SABB Takaful ', routeDesc: 'bla bla bla' },
+    {
+      symbol: '2230',
+      name: 'Saudi Chemical ',
+      routeDesc: 'bla bla bla',
+    },
+    { symbol: '2080', name: 'Gas ', routeDesc: 'bla bla bla' },
+    { symbol: '4010', name: 'Hotels ', routeDesc: 'bla bla bla' },
+    { symbol: '2002', name: 'Petrochem ', routeDesc: 'bla bla bla' },
+    { symbol: '2001', name: 'CHEMANOL ', routeDesc: 'bla bla bla' },
 
-  ngOnInit(): void {
-   let url = " /v10/finance/quoteSummary/"
-                + 2222 + ".SR" +
-                "?modules=assetProfile%2CsummaryProfile%2CsummaryDetail%2CesgScores%2Cprice%2CincomeStatementHistory%2CincomeStatementHistoryQuarterly%2CbalanceSheetHistory%2CbalanceSheetHistoryQuarterly%2CcashflowStatementHistory%2CcashflowStatementHistoryQuarterly%2CdefaultKeyStatistics%2CfinancialData%2CcalendarEvents%2CsecFilings%2CrecommendationTrend%2CupgradeDowngradeHistory%2CinstitutionOwnership%2CfundOwnership%2CmajorDirectHolders%2CmajorHoldersBreakdown%2CinsiderTransactions%2CinsiderHolders%2CnetSharePurchaseActivity%2Cearnings%2CearningsHistory%2CearningsTrend%2CindustryTrend%2CindexTrend%2CsectorTrend";
+  ];
+
+  constructor() { }
+  onSubmit(f: NgForm) : void{
+    let url = " /v10/finance/quoteSummary/"
+      + f.value.company + ".SR" +
+      "?modules=assetProfile%2CsummaryProfile%2CsummaryDetail%2CesgScores%2Cprice%2CincomeStatementHistory%2CincomeStatementHistoryQuarterly%2CbalanceSheetHistory%2CbalanceSheetHistoryQuarterly%2CcashflowStatementHistory%2CcashflowStatementHistoryQuarterly%2CdefaultKeyStatistics%2CfinancialData%2CcalendarEvents%2CsecFilings%2CrecommendationTrend%2CupgradeDowngradeHistory%2CinstitutionOwnership%2CfundOwnership%2CmajorDirectHolders%2CmajorHoldersBreakdown%2CinsiderTransactions%2CinsiderHolders%2CnetSharePurchaseActivity%2Cearnings%2CearningsHistory%2CearningsTrend%2CindustryTrend%2CindexTrend%2CsectorTrend";
     axios.get(url).then(res => {
+      console.log(res.data)
       alert(res.data.quoteSummary.result[0].assetProfile.city)
     }).catch(error => {
       console.log(error)
     })
+  }
+  ngOnInit(): void {
   }
 
 }

@@ -1,1 +1,9 @@
 <p>yahoo-api works!</p>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <select name="company" ngModel >
+        <option value="" disabled selected>Select Company</option>
+        <option *ngFor="let company of companiesList" value={{company.symbol}}>{{company.symbol}} | {{company.name}}
+        </option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
