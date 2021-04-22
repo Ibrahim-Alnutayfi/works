@@ -1,0 +1,11 @@
+<div class="col">
+    <h3 class="title">Title</h3>
+    <p class="desc">this is description : bla bla bla</p>
+</div>
+<div class="row items-container">
+    <div class="item" *ngFor="let route of routerList">
+        <p>{{route.routeName}}</p>
+        <p>this is description : bla bla bla</p>
+        <a routerLink={{route.routeURL}}>Visit</a>
+    </div>
+</div>
