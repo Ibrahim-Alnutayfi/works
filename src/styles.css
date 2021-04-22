@@ -1,10 +1,13 @@
-html, body {
-    background-image: linear-gradient( to right, #355C7D, #6C5B7B, #C06C84);
+@import "~bootstrap/dist/css/bootstrap.css";
+
+html,
+body {
+  background-image: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
 }
-.container{
-    background-color: #fff;
-    margin-top: 100px;
-    border-radius: 5px;
-    padding: 30px;
-    box-shadow: 0px 8px 15px rgb(0 0 0 / 10%);
+.container {
+  background-color: #fff;
+  margin-top: 100px;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 0px 8px 15px rgb(0 0 0 / 10%);
 }

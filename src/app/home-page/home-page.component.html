@@ -1,11 +1,30 @@
 <div class="col">
-    <h3 class="title">Title</h3>
-    <p class="desc">this is description : bla bla bla</p>
+  <h3 class="title">Title</h3>
+  <p class="desc">this is description : bla bla bla</p>
+</div>
+<div class="row justify-content-center">
+  <div class="dropdown col-md-4">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      Select Company
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <div class="option py-1" *ngFor="let company of routerList">
+        {{ company.routeName }}
+      </div>
+    </div>
+  </div>
 </div>
 <div class="row items-container">
-    <div class="item" *ngFor="let route of routerList">
-        <p>{{route.routeName}}</p>
-        <p>{{route.routeDesc}}</p>
-        <a routerLink={{route.routeURL}}>Visit</a>
-    </div>
+  <div class="item" *ngFor="let route of routerList">
+    <p>{{ route.routeName }}</p>
+    <p>{{ route.routeDesc }}</p>
+    <a (click)="onClick(route.routeURL)">Visit</a>
+  </div>
 </div>
