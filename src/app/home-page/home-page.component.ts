@@ -7,16 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   routerList = [
-    {routeURL : 'yahoo-api' , routeName : 'Yahoo Finance Api '},
-    {routeURL : '' , routeName : '2'},
-    {routeURL : '' , routeName : '3'},
-    {routeURL : '' , routeName : '4'},
-    {routeURL : '' , routeName : '5'},
-    {routeURL : '' , routeName : '6'},
+    { routeURL: 'yahoo-api', routeName: 'Yahoo Finance Api ', routeDesc: 'bla bla bla' },
+    { routeURL: '', routeName: '2', routeDesc: 'bla bla bla' },
+    { routeURL: '', routeName: '3', routeDesc: 'bla bla bla' },
+    { routeURL: '', routeName: '4', routeDesc: 'bla bla bla' },
+    { routeURL: '', routeName: '5', routeDesc: 'bla bla bla' },
+    { routeURL: '', routeName: '6', routeDesc: 'bla bla bla' },
   ];
   constructor() {
-      
-   }
+
+  }
 
   ngOnInit(): void {
   }
