@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-image-to-base64',
@@ -7,23 +7,26 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./image-to-base64.component.css']
 })
 export class ImageToBase64Component implements OnInit {
-  
-   ImageBaseData = '';
-   ImageBaseDataLength = 0;
+
+  ImageBaseData = '';
+  ImageBaseDataLength = 0;
+  isCopied = false;
   constructor() { }
 
   ngOnInit(): void {
-
   }
-  onFileChanged(event : any) {
-    var ImageBaseData1 : any = '';
+  onFileChanged(event: any) {
+    this.ImageBaseData = '';
+    this.ImageBaseDataLength = 0;
+    this.isCopied = false;
+    var ImageBaseData1: any = '';
     const file = event.target.files[0]
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
       ImageBaseData1 = reader.result;
     };
-    reader.onloadend = () =>{
+    reader.onloadend = () => {
       this.ImageBaseData = ImageBaseData1;
       this.ImageBaseDataLength = this.ImageBaseData.length;
     }
@@ -32,6 +35,20 @@ export class ImageToBase64Component implements OnInit {
     };
   }
 
-  
+  copyMessage() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.ImageBaseData;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.isCopied = true;
+  }
+
 
 }
