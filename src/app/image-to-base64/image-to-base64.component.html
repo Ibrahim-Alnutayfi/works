@@ -1,6 +1,18 @@
-<p>styles needed</p>
+<h3 class="title">Title</h3>
+<p class="desc">this is description : bla bla bla</p>
 <form>
-    <input type="file" (change)="onFileChanged($event)">
-    <img src={{ImageBaseData}} width="200px" >
-    <p style="overflow-wrap: break-word;">{{ImageBaseData}}</p>
+    <div class="form-group files color my-5">
+        <input type="file" (change)="onFileChanged($event)" class="form-control" multiple="">
+    </div>
+    <div *ngIf="ImageBaseData != ''" class="row result">
+        <div></div>
+        <div class="col-lg-6 col-sm-12">
+            <img src={{ImageBaseData}}>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <p class="length">Base64 length: {{ImageBaseDataLength}} characters.</p>
+            <button class="btn btn-primary m-auto">Click To Copy ( Not Working Yet )</button>
+            <p class="data">{{ImageBaseData}}</p>
+        </div>
+    </div>
 </form>

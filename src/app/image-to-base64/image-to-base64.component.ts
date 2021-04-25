@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-image-to-base64',
   templateUrl: './image-to-base64.component.html',
@@ -8,6 +9,7 @@ import {NgForm} from '@angular/forms';
 export class ImageToBase64Component implements OnInit {
   
    ImageBaseData = '';
+   ImageBaseDataLength = 0;
   constructor() { }
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class ImageToBase64Component implements OnInit {
     };
     reader.onloadend = () =>{
       this.ImageBaseData = ImageBaseData1;
+      this.ImageBaseDataLength = this.ImageBaseData.length;
     }
     reader.onerror = function (error) {
       console.log('Error: ', error);
