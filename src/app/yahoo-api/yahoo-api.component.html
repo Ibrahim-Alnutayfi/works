@@ -1,9 +1,35 @@
 <p>yahoo-api works!</p>
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <select name="company" ngModel >
-        <option value="" disabled selected>Select Company</option>
-        <option *ngFor="let company of companiesList" value={{company.symbol}}>{{company.symbol}} | {{company.name}}
-        </option>
-    </select>
-    <button type="submit">Submit</button>
+<form #f="ngForm">
+  <select name="company" ngModel>
+    <option value="" disabled selected>Select Company</option>
+    <option *ngFor="let company of companiesList" value="{{ company.symbol }}">
+      {{ company.symbol }} | {{ company.name }}
+    </option>
+  </select>
+  <button type="submit" (submit)="onSubmit(f)">Submit</button>
 </form>
+<div class="wrapper">
+  <div *ngFor="let company of companiesList">
+    <div class="card">
+      <div class="card-image">
+        <img src="" alt="company logo" />
+      </div>
+      <div class="card-body">
+        <h3 class="card-title text-center">{{ company.name }}</h3>
+
+        <div class="card-details">
+          <p>Current Price:{{ company.currentPrice }}</p>
+          <p>Change : {{ company.change }}</p>
+          <p>Net Change: {{ company.netChange }}</p>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-center">
+        <a
+          class="card-link text-center btn btn-primary"
+          (click)="redirectToCompany(company)"
+          >Details</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

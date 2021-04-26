@@ -1,7 +1,7 @@
 {
-    "/v10/finance/quoteSummary/": {
-      "target": "https://query2.finance.yahoo.com",
-      "secure": false,
-      "changeOrigin": true
-    }
+  "/v10/finance/quoteSummary/": {
+    "target": "https://query2.finance.yahoo.com",
+    "secure": false,
+    "changeOrigin": true
   }
+}
