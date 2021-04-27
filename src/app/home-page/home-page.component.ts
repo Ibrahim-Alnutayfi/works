@@ -17,8 +17,8 @@ export class HomePageComponent implements OnInit {
       routeDesc: 'bla bla bla',
     },
     {
-      routeURL: 'image-to-base-64',
-      routeName: 'Image To Base64',
+      routeURL: 'convert-multi-files',
+      routeName: 'Convert Multi-Files to base64',
       routeDesc: 'bla bla bla',
     },
     {

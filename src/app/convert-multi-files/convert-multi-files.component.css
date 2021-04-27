@@ -1,0 +1,155 @@
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 0;
+}
+
+.info .btn {
+    margin: auto 0 auto auto;
+}
+
+.info p {
+    margin: auto auto auto 0;
+}
+
+.errorMsg {
+    margin: auto;
+    color: red;
+    font-size: 13px;
+    text-align: center;
+}
+
+.btn, .btn-primary {
+    background: #c06c84;
+    outline: none;
+    border: none;
+    box-shadow: none !important;
+    font-size: 14px;
+    padding: 10px 20px !important;
+}
+
+.btn:hover, .btn-primary:hover {
+    background: #c06c84;
+    color: black;
+}
+
+.btn:focus, .btn-primary:focus {
+    border: none;
+    box-shadow: none !important;
+    outline: none;
+}
+.table{
+    text-align: center;
+}
+.table th{
+    background-color: #c06c84;
+    color: #000;
+    font-weight: 400;
+    border: 0 !important;
+}
+.table td{
+    margin: auto;
+    font-size: 14px;
+}
+.files input {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 80px 0px 80px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.files input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
+}
+
+.files {
+    position: relative;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.files:after {
+    pointer-events: none;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    background-image: url('../../assets/uploadFile.png');
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.color input {
+    background-color: #f1f1f1;
+}
+
+.files:before {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    content: "Click to choose files or just drag it here. accepted file type is (pdf, jpeg, png)";
+    display: block;
+    margin: 0 auto;
+    color: rgba(0, 0, 0, 0.596);
+    text-align: center;
+}
+
+.result {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px !important;
+    height: 500px;
+    overflow: hidden;
+}
+
+.result .btn {
+    margin: auto !important;
+    text-decoration: none;
+    background-color: #c06c84;
+    color: #fff;
+    padding: 5px 20px !important;
+    border-radius: 5px !important;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+
+.result img {
+    max-height: 460px;
+    width: 100%;
+    margin: auto !important;
+}
+
+.result .length {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.596);
+}
+
+.result .data {
+    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgba(0, 0, 0, 0.596);
+}

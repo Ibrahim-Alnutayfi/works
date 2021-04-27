@@ -4,11 +4,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { YahooApiComponent } from './yahoo-api/yahoo-api.component';
 import { CompanyComponent } from './yahoo-api/company/company.component';
 
-import { ImageToBase64Component } from './image-to-base64/image-to-base64.component';
+import { ConvertMultiFilesComponent } from './convert-multi-files/convert-multi-files.component';
 const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'yahoo-api', component: YahooApiComponent },
-  { path: 'image-to-base-64', component: ImageToBase64Component },
+  { path: 'convert-multi-files', component: ConvertMultiFilesComponent },
   { path: 'yahoo-api/company/:symbol', component: CompanyComponent },
 ];
 
@@ -21,5 +21,4 @@ export class AppRoutingModule {}
 export const routingComponents = [
   HomePageComponent,
   YahooApiComponent,
-  ImageToBase64Component,
 ];
