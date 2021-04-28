@@ -60,18 +60,20 @@ export class ConvertMultiFilesComponent implements OnInit {
     return sOutput;
   }
   copyMessage(val: string) {
-    alert('Large file size may take some time to copy. please be patient');
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = val;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-    this.infoMsg = 'Copied';
+    var confirmed = confirm('Large file size may take some time to copy. click ok to process');
+    if (confirmed) {
+      const selBox = document.createElement('textarea');
+      selBox.style.position = 'fixed';
+      selBox.style.left = '0';
+      selBox.style.top = '0';
+      selBox.style.opacity = '0';
+      selBox.value = val;
+      document.body.appendChild(selBox);
+      selBox.focus();
+      selBox.select();
+      document.execCommand('copy');
+      document.body.removeChild(selBox);
+      this.infoMsg = 'Copied';
+    }
   }
 }
