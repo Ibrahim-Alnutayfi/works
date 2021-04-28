@@ -1,5 +1,5 @@
-<h3 class="title">Title</h3>
-<p class="desc">this is description : bla bla bla</p>
+<h3 class="title">Convert Multi-Files to base64</h3>
+<p class="desc"></p>
 <form>
     <div class="form-group files color my-5">
         <input type="file" (change)="onFileChanged($event)" class="form-control" multiple="true">
@@ -23,14 +23,29 @@
                 <td>{{i+1}}</td>
                 <td>{{file.name}}</td>
                 <td>{{file.type}}</td>
-                <td>{{file.size}}</td>
+                <td>{{updateSize(file.size)}}</td>
             </tr>
         </tbody>
     </table>
-
-    <div *ngFor="let x of convertedFiles" class="text-truncate">
-        <p class="mt-5">{{x}}</p>
-    </div>
+    <hr class="mt-5"> 
+    <p class="infoMsg">{{infoMsg}}</p> 
+    <table *ngIf="convertedFiles.length > 0" class="table text-center mt-5">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">value</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of convertedFiles; index as i">
+                <td>{{i+1}}</td>
+                <td class="value">{{file}}</td>
+                <td><span (click)="copyMessage(file)">Copy</span></td>
+            </tr>
+        </tbody>
+    </table>
+   
     <!-- <div *ngFor='let x in convertedFiles'>
         <p>{{x}}</p>
     </div> -->

@@ -18,7 +18,12 @@
     font-size: 13px;
     text-align: center;
 }
-
+.infoMsg{
+    margin: auto;
+    color: #6c5b7b;
+    font-size: 13px;
+    text-align: center;
+}
 .btn, .btn-primary {
     background: #c06c84;
     outline: none;
@@ -51,6 +56,22 @@
     margin: auto;
     font-size: 14px;
 }
+.table span{
+    cursor: pointer;
+}
+.value{
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 500px !important;
+}
+@media only screen and (max-width: 767px) {
+    .value{
+        max-width: 200px !important;
+
+    }
+}
+
 .files input {
     outline: 2px dashed #92b0b3;
     outline-offset: -10px;

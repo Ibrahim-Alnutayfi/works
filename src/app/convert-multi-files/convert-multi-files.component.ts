@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ExcelServicesService } from '../services/excel-services.service';
 import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-convert-multi-files',
@@ -17,13 +16,12 @@ export class ConvertMultiFilesComponent implements OnInit {
     "image/png",
   ];
   errorMsg = '';
-  constructor(private excelService: ExcelServicesService) {
-    this.excelService.exportAsExcelFile(this.acceptedFileTypes, 'acceptedFileTypes');
+  infoMsg = '';
+  constructor() {
   }
   ngOnInit(): void {
   }
   onFileChanged(event: any) {
-
     this.errorMsg = '';
     for (let i = 0; i < event.target.files.length; i++) {
       if (this.selectedFiles.length < 15) {
@@ -37,7 +35,7 @@ export class ConvertMultiFilesComponent implements OnInit {
       }
     }
   }
-  saveConvertedFiles(file : any){
+  saveConvertedFiles(file: any) {
     this.convertedFiles.push(file.toString());
     console.log(this.convertedFiles.length);
   }
@@ -52,5 +50,28 @@ export class ConvertMultiFilesComponent implements OnInit {
         console.log('Error: ', error);
       };
     }
+  }
+  updateSize(size: any) {
+    var sOutput = size + " bytes";
+    for (var aMultiples = ["K", "M", "G", "T", "P", "E", "Z", "Y"], nMultiple = 0, nApprox = size / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+      sOutput = nApprox.toFixed(1) + aMultiples[nMultiple];
+    }
+
+    return sOutput;
+  }
+  copyMessage(val: string) {
+    alert('Large file size may take some time to copy. please be patient');
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.infoMsg = 'Copied';
   }
 }
