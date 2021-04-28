@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser';
+import { ExcelServicesService } from '../services/excel-services.service';
+import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-convert-multi-files',
   templateUrl: './convert-multi-files.component.html',
@@ -8,15 +10,16 @@ import { BrowserModule } from '@angular/platform-browser'
 export class ConvertMultiFilesComponent implements OnInit {
 
   selectedFiles: File[] = [];
-  convertedFiles : any[] = [];
+  convertedFiles: any[] = [];
   acceptedFileTypes = [
     "application/pdf",
     "image/jpeg",
     "image/png",
   ];
   errorMsg = '';
-  constructor() { }
-
+  constructor(private excelService: ExcelServicesService) {
+    this.excelService.exportAsExcelFile(this.acceptedFileTypes, 'acceptedFileTypes');
+  }
   ngOnInit(): void {
   }
   onFileChanged(event: any) {
@@ -34,18 +37,16 @@ export class ConvertMultiFilesComponent implements OnInit {
       }
     }
   }
+  saveConvertedFiles(file : any){
+    this.convertedFiles.push(file.toString());
+    console.log(this.convertedFiles.length);
+  }
   covertFile() {
     for (let i = 0; i < this.selectedFiles.length; i++) {
-      console.log(this.convertedFiles.length)
-      var ImageBaseData1: any = '';
       let reader = new FileReader();
       reader.readAsDataURL(this.selectedFiles[i]);
-      reader.onload =  () => {
-        console.log(reader.result)
-        ImageBaseData1 = reader.result;
-      };
-      reader.onloadend = () => {
-        this.convertedFiles.push(ImageBaseData1);
+      reader.onload = async () => {
+        await this.saveConvertedFiles(reader.result);
       }
       reader.onerror = function (error) {
         console.log('Error: ', error);
