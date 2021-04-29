@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { async } from '@angular/core/testing';
+
 @Component({
   selector: 'app-convert-multi-files',
   templateUrl: './convert-multi-files.component.html',
@@ -18,6 +19,7 @@ export class ConvertMultiFilesComponent implements OnInit {
   errorMsg = '';
   infoMsg = '';
   constructor() {
+    
   }
   ngOnInit(): void {
   }
@@ -39,12 +41,12 @@ export class ConvertMultiFilesComponent implements OnInit {
     this.convertedFiles.push(file.toString());
     console.log(this.convertedFiles.length);
   }
-  covertFile() {
+   covertFile() {
     for (let i = 0; i < this.selectedFiles.length; i++) {
       let reader = new FileReader();
-      reader.readAsDataURL(this.selectedFiles[i]);
-      reader.onload = async () => {
-        await this.saveConvertedFiles(reader.result);
+       reader.readAsDataURL(this.selectedFiles[i]);
+      reader.onload =  () => {
+         this.saveConvertedFiles(reader.result);
       }
       reader.onerror = function (error) {
         console.log('Error: ', error);
@@ -59,21 +61,21 @@ export class ConvertMultiFilesComponent implements OnInit {
 
     return sOutput;
   }
-  copyMessage(val: string) {
-    var confirmed = confirm('Large file size may take some time to copy. click ok to process');
-    if (confirmed) {
-      const selBox = document.createElement('textarea');
-      selBox.style.position = 'fixed';
-      selBox.style.left = '0';
-      selBox.style.top = '0';
-      selBox.style.opacity = '0';
-      selBox.value = val;
-      document.body.appendChild(selBox);
-      selBox.focus();
-      selBox.select();
-      document.execCommand('copy');
-      document.body.removeChild(selBox);
-      this.infoMsg = 'Copied';
-    }
-  }
+  // async copyMessage(val: string) {
+  //   var confirmed = confirm('Large file size may take some time to copy. click ok to process');
+  //   if (confirmed) {
+  //     const selBox = document.createElement('textarea');
+  //     selBox.style.position = 'fixed';
+  //     selBox.style.left = '0';
+  //     selBox.style.top = '0';
+  //     selBox.style.opacity = '0';
+  //     selBox.value = val;
+  //     document.body.appendChild(selBox);
+  //     selBox.focus();
+  //     selBox.select();
+  //     await document.execCommand('copy');
+  //     document.body.removeChild(selBox);
+  //     this.infoMsg = 'Copied';
+  //   }
+  // }
 }

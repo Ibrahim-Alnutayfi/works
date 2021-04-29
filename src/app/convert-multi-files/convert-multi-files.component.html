@@ -34,14 +34,12 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">value</th>
-                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let file of convertedFiles; index as i">
                 <td>{{i+1}}</td>
                 <td class="value">{{file}}</td>
-                <td><span (click)="copyMessage(file)">Copy</span></td>
             </tr>
         </tbody>
     </table>
