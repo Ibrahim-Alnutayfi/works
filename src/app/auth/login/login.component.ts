@@ -1,108 +1,54 @@
+import { state } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css', '../auth.module.css'],
 })
+
+
 export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    public service: AuthService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {}
+
+  loginForm = this.fb.group({
+    userName: ['', this.service.userNameValidation],
+    password: ['', this.service.passwordValidation],
+  });
+
 
   login(event: any) {
     event.preventDefault();
+
     var user = {
       UserName: this.loginForm.get('userName')?.value,
       Password: this.loginForm.get('password')?.value,
     };
 
-    this.http
-      .post('https://localhost:5001/api/auth/login', user)
+    this.http.post('https://localhost:5001/api/auth/login', user)
       .subscribe((res: any) => {
         if (res.succeeded) {
+          localStorage.setItem('token', res.token);
           console.log('Login success');
-          this.router.navigateByUrl('/');
+          console.log("login Url : "+this.activatedRoute.snapshot.queryParams.returnUrl);
+          
+          this.router.navigateByUrl(this.activatedRoute.snapshot.queryParams.returnUrl);
         } else {
           console.log('Login failed');
-
-          alert('Error : Username or password wrong.');
-        }
-      });
-  }
-
-  loginForm = this.fb.group({
-    userName: ['', Validators.required],
-    password: [
-      null,
-      Validators.compose([
-        Validators.minLength(4),
-        Validators.maxLength(30),
-        LoginComponent.patternValidator(/\d/, {
-          /*hasNumber: true*/
-        }),
-        LoginComponent.patternValidator(/[A-Z]/, {
-          /*hasUpperCase: true */
-        }),
-        LoginComponent.patternValidator(/[a-z]/, {
-          /*hasLowerCase: true */
-        }),
-        LoginComponent.patternValidator(
-          /[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/,
-          {
-            /*hasSpicalCharacter: true */
-          }
-        ),
-      ]),
-    ],
-  });
-  validationMessages = {
-    userName: [
-      { type: 'required', message: 'Username is required.' },
-      { type: 'maxlength', message: 'Maximum length is 30 characters.' },
-    ],
-    password: [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'minlength', message: 'Minmum length is 8 characters.' },
-      { type: 'maxlength', message: 'Maximum length is 15 characters.' },
-      { type: 'hasNumber', message: 'Password must contain number.' },
-      {
-        type: 'hasUpperCase',
-        message: 'Password must contain upper case letter.',
-      },
-      {
-        type: 'hasLowerCase',
-        message: 'Password must contain lower case letter.',
-      },
-      {
-        type: 'hasSpicalCharacter',
-        message: 'Password must contain spical character.',
-      },
-    ],
-  };
-  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
-      if (!control.value) {
-        // if control is empty return no error
-        return null as any;
+          console.log(res);
       }
-      const valid = regex.test(control.value);
-
-      return valid ? null : (error as any);
-    };
+    });
   }
 }

@@ -7,23 +7,26 @@ import {
   Validators,
 } from '@angular/forms';
 
+
 @Injectable({
   providedIn: 'root',
 })
+
+
 export class AuthService {
   constructor() {}
 
   userNameValidation = [Validators.required, Validators.maxLength(30)];
   firstNameValidation = [Validators.required, Validators.maxLength(15)];
   lastNameValidation = [Validators.required, Validators.maxLength(15)];
-  email = [Validators.required, Validators.email, Validators.maxLength(30)];
-  password = Validators.compose([
+  emailValidation = [Validators.required, Validators.email, Validators.maxLength(30)];
+  passwordValidation = Validators.compose([
              Validators.required, Validators.minLength(4), Validators.maxLength(30),
              AuthService.patternValidator(/\d/, { /*hasNumber: true*/ }),
              AuthService.patternValidator(/[A-Z]/, { /*hasUpperCase: true */ }),
              AuthService.patternValidator(/[a-z]/, { /*hasLowerCase: true */ }),
              AuthService.patternValidator(/[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/,{ /*hasSpicalCharacter: true */ })  ]);
-  cPassword = Validators.required;
+  cPasswordValidation = Validators.required;
 
 
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
@@ -34,6 +37,8 @@ export class AuthService {
       return valid ? null : (error as any);
     };
   }
+
+
   passwordsValidator(fg: FormGroup) {
     let passWord = fg.get('password');
     let confirmPassWord = fg.get('cPassword');
@@ -41,11 +46,12 @@ export class AuthService {
     if (confirmPassWord?.dirty || confirmPassWord?.touched) {
       if (passWord?.errors !== null)
         confirmPassWord?.setErrors({ firstPasswordInvalid: true });
-
       else if (passWord?.value !== confirmPassWord?.value)
         confirmPassWord?.setErrors({ passwordsMissMatch: true });
     }
   }
+
+  
   validationMessages = {
     userName: [
       { type: 'required',  message: 'Username is required.' },

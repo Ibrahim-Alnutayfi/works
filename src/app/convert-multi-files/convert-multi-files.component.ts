@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-convert-multi-files',
@@ -18,7 +19,7 @@ export class ConvertMultiFilesComponent implements OnInit {
   ];
   errorMsg = '';
   infoMsg = '';
-  constructor() {
+  constructor(private router:Router) {
     
   }
   ngOnInit(): void {
@@ -78,4 +79,8 @@ export class ConvertMultiFilesComponent implements OnInit {
   //     this.infoMsg = 'Copied';
   //   }
   // }
+  onLogout() {
+    localStorage.removeItem("token");
+    this.router.navigateByUrl("/");
+  }
 }

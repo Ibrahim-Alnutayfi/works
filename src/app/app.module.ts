@@ -10,6 +10,7 @@ import { YahooApiComponent } from './yahoo-api/yahoo-api.component';
 import { ConvertMultiFilesComponent } from './convert-multi-files/convert-multi-files.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [

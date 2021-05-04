@@ -6,6 +6,13 @@
     <form [formGroup]="loginForm">
       <div class="form-group">
         <input type="text" placeholder="Username" formControlName="userName" />
+        <div *ngFor="let validation of this.service.validationMessages.userName">
+          <div *ngIf="
+              loginForm.get('userName')?.hasError(validation.type) &&
+              (loginForm.get('userName')?.dirty ||
+              loginForm.get('userName')?.touched)" >
+            <small class="error-message">{{ validation.message }}</small>
+        </div>
       </div>
       <div class="form-group">
         <input
@@ -13,21 +20,23 @@
           placeholder="Password"
           formControlName="password"
         />
+        <div *ngFor="let validation of this.service.validationMessages.password">
+          <div *ngIf="
+              loginForm.get('password')?.hasError(validation.type) &&
+              (loginForm.get('password')?.dirty ||
+              loginForm.get('password')?.touched)">
+            <small class="error-message">Password invalid</small>
+          </div>
       </div>
       <div class="form-group">
         <button
           class="btn btn-primary"
           (click)="login($event)"
-          [disabled]="
-            !(
+          [disabled]="!(
               loginForm.get('userName')?.valid &&
-              loginForm.get('password')?.valid
-            )
-          "
-        >
+              loginForm.get('password')?.valid)">
           Login
         </button>
       </div>
-    </form>
   </div>
 </div>

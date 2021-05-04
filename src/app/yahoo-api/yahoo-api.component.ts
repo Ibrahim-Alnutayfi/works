@@ -215,4 +215,8 @@ export class YahooApiComponent implements OnInit {
     '8311',
     '8312',
   ];
+  onLogout() {
+    localStorage.removeItem("token");
+    this.router.navigateByUrl("/");
+  }
 }

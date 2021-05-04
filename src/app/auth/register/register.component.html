@@ -23,7 +23,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.userName">
+        <div *ngFor="let validation of this.service.validationMessages.userName">
           <div
             *ngIf="
               registerForm.get('userName')?.hasError(validation.type) &&
@@ -55,7 +55,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.firstName">
+        <div *ngFor="let validation of this.service.validationMessages.firstName">
           <div
             *ngIf="
               registerForm.get('firstName')?.hasError(validation.type) &&
@@ -86,7 +86,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.lastName">
+        <div *ngFor="let validation of this.service.validationMessages.lastName">
           <div
             *ngIf="
               registerForm.get('lastName')?.hasError(validation.type) &&
@@ -118,7 +118,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.password">
+        <div *ngFor="let validation of this.service.validationMessages.password">
           <div
             *ngIf="
               registerForm.get('password')?.hasError(validation.type) &&
@@ -150,7 +150,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.cPassword">
+        <div *ngFor="let validation of this.service.validationMessages.cPassword">
           <div
             *ngIf="
               registerForm.get('cPassword')?.hasError(validation.type) &&
@@ -182,7 +182,7 @@
           required
         />
         <span class="check-mark-icon align-middle"></span>
-        <div *ngFor="let validation of validationMessages.email">
+        <div *ngFor="let validation of this.service.validationMessages.email">
           <div
             *ngIf="
               registerForm.get('email')?.hasError(validation.type) &&
