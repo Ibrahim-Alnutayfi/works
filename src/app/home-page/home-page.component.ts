@@ -25,6 +25,6 @@ export class HomePageComponent implements OnInit {
       routeURL: '',
       routeName: 'Project 3',
       routeDesc: 'bla bla bla',
-    }
+    },
   ];
 }

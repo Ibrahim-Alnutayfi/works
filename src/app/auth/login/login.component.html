@@ -1,1 +1,33 @@
-<p>login works!</p>
+<div>
+  <div class="row d-flex justify-content-center">
+    <a class="btn btn-primary" routerLink="/">Home</a>
+  </div>
+  <div class="row">
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <input type="text" placeholder="Username" formControlName="userName" />
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </div>
+      <div class="form-group">
+        <button
+          class="btn btn-primary"
+          (click)="login($event)"
+          [disabled]="
+            !(
+              loginForm.get('userName')?.valid &&
+              loginForm.get('password')?.valid
+            )
+          "
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

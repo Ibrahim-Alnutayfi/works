@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import {
   AbstractControl,
   FormBuilder,
@@ -9,6 +11,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +19,11 @@ import {
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
@@ -41,14 +48,23 @@ export class RegisterComponent {
       password: [
         null,
         Validators.compose([
-          Validators.minLength(8),
+          Validators.required,
+          Validators.minLength(4),
           Validators.maxLength(30),
-          RegisterComponent.patternValidator(/\d/, { hasNumber: true }),
-          RegisterComponent.patternValidator(/[A-Z]/, { hasUpperCase: true }),
-          RegisterComponent.patternValidator(/[a-z]/, { hasLowerCase: true }),
+          RegisterComponent.patternValidator(/\d/, {
+            /*hasNumber: true*/
+          }),
+          RegisterComponent.patternValidator(/[A-Z]/, {
+            /*hasUpperCase: true */
+          }),
+          RegisterComponent.patternValidator(/[a-z]/, {
+            /*hasLowerCase: true */
+          }),
           RegisterComponent.patternValidator(
             /[-._!"`'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|]+/,
-            { hasSpicalCharacter: true }
+            {
+              /*hasSpicalCharacter: true */
+            }
           ),
         ]),
       ],
@@ -108,8 +124,29 @@ export class RegisterComponent {
     ],
   };
 
-  submit(e: any) {
-    e.preventDefault();
+  submit(event: any) {
+    event.preventDefault();
+    var user = {
+      UserName: this.registerForm.get('userName')?.value,
+      FirstName: this.registerForm.get('firstName')?.value,
+      LastName: this.registerForm.get('lastName')?.value,
+      Password: this.registerForm.get('password')?.value,
+      Email: this.registerForm.get('email')?.value,
+    };
+
+    this.http.post('https://localhost:5001/api/auth/register', user).subscribe(
+      (res: any) => {
+        if (res.succeeded) {
+          this.router.navigateByUrl('/');
+        } else
+          res.errors.forEach((element: any) => {
+            alert('Error :' + element.description);
+          });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   ngOnInit(): void {}
@@ -117,7 +154,6 @@ export class RegisterComponent {
   passwordsValidator(fg: FormGroup) {
     let passWord = fg.get('password');
     let confirmPassWord = fg.get('cPassword');
-    console.log(passWord?.errors === null);
 
     if (confirmPassWord?.dirty || confirmPassWord?.touched) {
       if (passWord?.errors !== null)
